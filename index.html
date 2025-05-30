@@ -15,7 +15,7 @@
   <div id="wishlist">Загрузка...</div>
 
   <script>
-    fetch('https://raw.githubusercontent.com/Radurainbow/Radurainbow-wishlist/main/wishlist.md')
+    fetch('https://raw.githubusercontent.com/RADURAINBOW/RADURAINBOW-wishlist/main/wishlist.md')
       .then(response => response.text())
       .then(text => {
         document.getElementById('wishlist').innerHTML = marked.parse(text);
