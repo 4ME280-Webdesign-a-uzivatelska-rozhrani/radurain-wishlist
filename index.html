@@ -1,115 +1,190 @@
-<style>
-  body {
-    background-color: #121212;
-    color: #f0f0f0;
-    font-family: 'Segoe UI', sans-serif;
-    max-width: 900px;
-    margin: 2em auto;
-    padding: 0 1em;
-  }
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>My Wishlist</title>
+  <style>
+    body {
+      background-color: #121212;
+      color: #f0f0f0;
+      font-family: 'Segoe UI', sans-serif;
+      max-width: 900px;
+      margin: 2em auto;
+      padding: 0 1em;
+    }
 
-  h1 {
-    text-align: center;
-    color: #ffffff;
-  }
+    h1 {
+      text-align: center;
+      color: #ffffff;
+    }
 
-  .gift {
-    background-color: #1e1e1e;
-    border: 1px solid #333;
-    padding: 1em;
-    margin-bottom: 1.5em;
-    border-radius: 10px;
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.4);
-    transition: box-shadow 0.3s ease;
-  }
+    .gift {
+      background-color: #1e1e1e;
+      border: 1px solid #333;
+      padding: 1em;
+      margin-bottom: 1.5em;
+      border-radius: 10px;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.4);
+      transition: box-shadow 0.3s ease;
+    }
 
-  .gift:hover {
-    box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
-  }
+    .gift:hover {
+      box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
+    }
 
-  .gift img {
-    width: 300px;
-    height: 200px;
-    object-fit: cover;
-    border-radius: 6px;
-    display: block;
-    margin-bottom: 1em;
-  }
+    .gift img {
+      width: 300px;
+      height: 200px;
+      object-fit: cover;
+      border-radius: 6px;
+      display: block;
+      margin-bottom: 1em;
+    }
 
-  .gift h3 {
-    margin: 0.5em 0 0.2em;
-  }
+    .gift h3 {
+      margin: 0.5em 0 0.2em;
+    }
 
-  .gift a {
-    color: #7dd3fc;
-    text-decoration: none;
-  }
+    .gift a {
+      color: #7dd3fc;
+      text-decoration: none;
+    }
 
-  .gift input {
-    margin-top: 0.5em;
-    padding: 0.6em;
-    width: 100%;
-    border: 1px solid #444;
-    border-radius: 4px;
-    background-color: #2a2a2a;
-    color: #f0f0f0;
-    transition: border 0.2s ease;
-  }
+    .gift input {
+      margin-top: 0.5em;
+      padding: 0.6em;
+      width: 100%;
+      border: 1px solid #444;
+      border-radius: 4px;
+      background-color: #2a2a2a;
+      color: #f0f0f0;
+      transition: border 0.2s ease;
+    }
 
-  .gift input:focus {
-    border-color: #7dd3fc;
-    outline: none;
-  }
+    .gift input:focus {
+      border-color: #7dd3fc;
+      outline: none;
+    }
 
-  .gift input::placeholder {
-    color: #888;
-  }
+    .gift input::placeholder {
+      color: #888;
+    }
 
-  .gift button {
-    margin-top: 0.5em;
-    padding: 0.6em;
-    width: 100%;
-    background-color: #3a3f4b;
-    color: #f0f0f0;
-    border: 1px solid #555;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: background-color 0.2s ease, transform 0.1s ease;
-  }
+    .gift button {
+      margin-top: 0.5em;
+      padding: 0.6em;
+      width: 100%;
+      background-color: #3a3f4b;
+      color: #f0f0f0;
+      border: 1px solid #555;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: background-color 0.2s ease, transform 0.1s ease;
+    }
 
-  .gift button:hover {
-    background-color: #505666;
-  }
+    .gift button:hover {
+      background-color: #505666;
+    }
 
-  .gift button:active {
-    transform: scale(0.98);
-  }
+    .gift button:active {
+      transform: scale(0.98);
+    }
 
-  .gift button:disabled {
-    background-color: #444;
-    color: #aaa;
-    cursor: default;
-  }
+    .gift button:disabled {
+      background-color: #444;
+      color: #aaa;
+      cursor: default;
+    }
 
-  .reserved {
-    color: #22c55e;
-    font-weight: bold;
-    margin-top: 0.5em;
-    display: flex;
-    align-items: center;
-    gap: 0.5em;
-    animation: fadeIn 0.5s ease;
-  }
+    .reserved {
+      color: #22c55e;
+      font-weight: bold;
+      margin-top: 0.5em;
+      display: flex;
+      align-items: center;
+      gap: 0.5em;
+      animation: fadeIn 0.5s ease;
+    }
 
-  .reserved::before {
-    content: '✔';
-    color: #22c55e;
-    font-weight: bold;
-    font-size: 1.2em;
-  }
+    .reserved::before {
+      content: '✔';
+      color: #22c55e;
+      font-weight: bold;
+      font-size: 1.2em;
+    }
 
-  @keyframes fadeIn {
-    from { opacity: 0; transform: translateY(-5px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
-</style>
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-5px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+<body>
+  <h1>🎁 My Birthday Wishlist</h1>
+  <div id="wishlist">Loading...</div>
+
+  <script>
+    const BIN_ID = "683901078561e97a501d4ea1";
+    const MASTER_KEY = "$2a$10$uDr5rz.0wQxj3NS8YyiAs.tePcxPNPWo9WYrIU84vATFAxb.MP7XK";
+    const API_URL = `https://api.jsonbin.io/v3/b/${BIN_ID}`;
+
+    async function loadWishlist() {
+      try {
+        const res = await fetch(API_URL + "/latest", {
+          headers: { "X-Master-Key": MASTER_KEY }
+        });
+        const data = await res.json();
+        const wishlist = data.record;
+        const container = document.getElementById("wishlist");
+        container.innerHTML = "";
+
+        wishlist.forEach((item, index) => {
+          const el = document.createElement("div");
+          el.className = "gift";
+          el.innerHTML = `
+            <img src="${item.image}" alt="${item.name}">
+            <h3><a href="${item.link}" target="_blank">${item.name}</a></h3>
+            <p>Price: ${item.price}</p>
+            ${
+              item.reservedBy
+                ? `<p class="reserved">Reserved by: ${item.reservedBy}</p>`
+                : `
+                  <input type="text" placeholder="Enter your name" id="name-${index}">
+                  <button onclick="reserveGift(${index})">Reserve</button>
+                `
+            }
+          `;
+          container.appendChild(el);
+        });
+
+        window.currentWishlist = wishlist;
+      } catch (error) {
+        document.getElementById("wishlist").innerHTML = "<p style='color: red;'>Failed to load wishlist.</p>";
+        console.error("Error loading wishlist:", error);
+      }
+    }
+
+    async function reserveGift(index) {
+      const nameInput = document.getElementById(`name-${index}`);
+      const name = nameInput.value.trim();
+      if (!name) return alert("Please enter a name.");
+
+      window.currentWishlist[index].reservedBy = name;
+
+      await fetch(API_URL, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          "X-Master-Key": MASTER_KEY,
+          "X-Bin-Private": "false"
+        },
+        body: JSON.stringify(window.currentWishlist)
+      });
+
+      loadWishlist();
+    }
+
+    loadWishlist();
+  </script>
+</body>
+</html>
