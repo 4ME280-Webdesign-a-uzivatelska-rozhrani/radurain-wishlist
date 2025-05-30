@@ -1,25 +1,80 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="en">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
   <title>My Wishlist</title>
-  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
   <style>
-    body { font-family: sans-serif; max-width: 800px; margin: 2em auto; line-height: 1.6; }
-    img { max-width: 100%; height: auto; }
-    a { color: darkblue; }
+    body { font-family: sans-serif; max-width: 800px; margin: 2em auto; padding: 0 1em; background: #fafafa; }
+    .gift { border: 1px solid #ccc; padding: 1em; margin-bottom: 1em; background: white; border-radius: 8px; }
+    .gift img { max-width: 100%; border-radius: 4px; }
+    .gift h3 { margin: 0.5em 0 0.2em; }
+    .gift input { margin-top: 0.5em; padding: 0.3em; width: 100%; }
+    .gift button { margin-top: 0.5em; padding: 0.5em; width: 100%; background-color: #007acc; color: white; border: none; border-radius: 4px; cursor: pointer; }
+    .gift button:disabled { background-color: gray; }
+    .reserved { color: green; font-weight: bold; margin-top: 0.5em; }
   </style>
 </head>
 <body>
-  <h1>My wishlist</h1>
-  <div id="wishlist">Wait...</div>
+  <h1>🎁 My Birthday Wishlist</h1>
+  <div id="wishlist">Loading...</div>
 
   <script>
-    fetch('https://raw.githubusercontent.com/Radurainbow/radurain-wishlist/main/wishlist.md')
-      .then(response => response.text())
-      .then(text => {
-        document.getElementById('wishlist').innerHTML = marked.parse(text);
+    const BIN_ID = "683901078561e97a501d4ea1";
+    const MASTER_KEY = "$2a$10$uDr5rz.0wQxj3NS8YyiAs.tePcxPNPWo9WYrIU84vATFAxb.MP7XK";
+    const API_URL = `https://api.jsonbin.io/v3/b/${BIN_ID}`;
+
+    async function loadWishlist() {
+      const res = await fetch(API_URL + "/latest", {
+        headers: { "X-Master-Key": MASTER_KEY }
       });
+      const data = await res.json();
+      const wishlist = data.record;
+      const container = document.getElementById("wishlist");
+      container.innerHTML = "";
+
+      wishlist.forEach((item, index) => {
+        const el = document.createElement("div");
+        el.className = "gift";
+        el.innerHTML = `
+          <img src="${item.image}" alt="${item.name}">
+          <h3><a href="${item.link}" target="_blank">${item.name}</a></h3>
+          <p>Price: ${item.price}</p>
+          ${
+            item.reservedBy
+              ? `<p class="reserved">Reserved by: ${item.reservedBy}</p>`
+              : `
+                <input type="text" placeholder="Enter your name" id="name-${index}">
+                <button onclick="reserveGift(${index})">Reserve</button>
+              `
+          }
+        `;
+        container.appendChild(el);
+      });
+
+      window.currentWishlist = wishlist;
+    }
+
+    async function reserveGift(index) {
+      const nameInput = document.getElementById(`name-${index}`);
+      const name = nameInput.value.trim();
+      if (!name) return alert("Please enter a name.");
+
+      window.currentWishlist[index].reservedBy = name;
+
+      await fetch(API_URL, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          "X-Master-Key": MASTER_KEY,
+          "X-Bin-Private": "false"
+        },
+        body: JSON.stringify(window.currentWishlist)
+      });
+
+      loadWishlist();
+    }
+
+    loadWishlist();
   </script>
 </body>
 </html>
