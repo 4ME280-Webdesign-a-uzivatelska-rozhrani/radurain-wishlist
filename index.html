@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <title>My Wishlist</title>
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+  <style>
+    body { font-family: sans-serif; max-width: 800px; margin: 2em auto; line-height: 1.6; }
+    img { max-width: 100%; height: auto; }
+    a { color: darkblue; }
+  </style>
+</head>
+<body>
+  <h1>My wishlist</h1>
+  <div id="wishlist">Загрузка...</div>
+
+  <script>
+    fetch('https://raw.githubusercontent.com/Radurainbow/Radurainbow-wishlist/main/wishlist.md')
+      .then(response => response.text())
+      .then(text => {
+        document.getElementById('wishlist').innerHTML = marked.parse(text);
+      });
+  </script>
+</body>
+</html>
