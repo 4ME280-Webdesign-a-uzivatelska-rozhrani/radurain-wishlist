@@ -20,6 +20,11 @@
     margin-bottom: 1.5em;
     border-radius: 10px;
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.4);
+    transition: box-shadow 0.3s ease;
+  }
+
+  .gift:hover {
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
   }
 
   .gift img {
@@ -48,6 +53,12 @@
     border-radius: 4px;
     background-color: #2a2a2a;
     color: #f0f0f0;
+    transition: border 0.2s ease;
+  }
+
+  .gift input:focus {
+    border-color: #7dd3fc;
+    outline: none;
   }
 
   .gift input::placeholder {
@@ -63,11 +74,15 @@
     border: 1px solid #555;
     border-radius: 4px;
     cursor: pointer;
-    transition: background-color 0.2s ease;
+    transition: background-color 0.2s ease, transform 0.1s ease;
   }
 
   .gift button:hover {
     background-color: #505666;
+  }
+
+  .gift button:active {
+    transform: scale(0.98);
   }
 
   .gift button:disabled {
@@ -80,5 +95,21 @@
     color: #22c55e;
     font-weight: bold;
     margin-top: 0.5em;
+    display: flex;
+    align-items: center;
+    gap: 0.5em;
+    animation: fadeIn 0.5s ease;
+  }
+
+  .reserved::before {
+    content: '✔';
+    color: #22c55e;
+    font-weight: bold;
+    font-size: 1.2em;
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-5px); }
+    to { opacity: 1; transform: translateY(0); }
   }
 </style>
